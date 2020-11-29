@@ -5,6 +5,8 @@ plugins {
   id("io.spring.dependency-management")
   kotlin("jvm")
   kotlin("plugin.spring")
+  kotlin("plugin.jpa") version "1.3.72"
+  kotlin("plugin.noarg") version "1.3.72"
 }
 
 group = "org.tormozzg.microservices"
@@ -25,6 +27,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-log4j2")
   implementation("com.lmax:disruptor:3.4.2")
   implementation("org.springframework.boot:spring-boot-starter-undertow")
+  implementation(project(":encoding-api"))
   runtimeOnly("io.micrometer:micrometer-registry-prometheus")
   testImplementation("org.springframework.boot:spring-boot-starter-test") {
     exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
