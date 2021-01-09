@@ -7,11 +7,16 @@ plugins {
   kotlin("plugin.spring")
   kotlin("plugin.jpa") version "1.3.72"
   kotlin("plugin.noarg") version "1.3.72"
+
 }
 
 group = "org.tormozzg.microservices"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 version = "1.0.0"
+
+repositories {
+  mavenCentral()
+}
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -24,6 +29,8 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
   implementation("org.springframework.cloud:spring-cloud-starter-config")
   implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+  implementation("org.springframework.cloud:spring-cloud-starter-netflix-hystrix")
+
   developmentOnly("org.springframework.boot:spring-boot-devtools")
   implementation("org.springframework.boot:spring-boot-starter-log4j2")
   implementation("com.lmax:disruptor:3.4.2")
