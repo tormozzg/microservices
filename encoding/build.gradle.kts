@@ -5,8 +5,8 @@ plugins {
   id("io.spring.dependency-management")
   kotlin("jvm")
   kotlin("plugin.spring")
-  kotlin("plugin.jpa") version "1.3.72"
-  kotlin("plugin.noarg") version "1.3.72"
+  kotlin("plugin.jpa") version "1.4.21"
+  kotlin("plugin.noarg") version "1.4.21"
 }
 
 group = "org.tormozzg.microservices"

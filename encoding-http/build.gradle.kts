@@ -5,8 +5,8 @@ plugins {
   id("io.spring.dependency-management")
   kotlin("jvm")
   kotlin("plugin.spring")
-  kotlin("plugin.jpa") version "1.3.72"
-  kotlin("plugin.noarg") version "1.3.72"
+  kotlin("plugin.jpa") version "1.4.21"
+  kotlin("plugin.noarg") version "1.4.21"
 
 }
 
@@ -29,7 +29,6 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
   implementation("org.springframework.cloud:spring-cloud-starter-config")
   implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-  implementation("org.springframework.cloud:spring-cloud-starter-netflix-hystrix")
 
   developmentOnly("org.springframework.boot:spring-boot-devtools")
   implementation("org.springframework.boot:spring-boot-starter-log4j2")
