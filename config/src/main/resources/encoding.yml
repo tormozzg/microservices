@@ -9,6 +9,8 @@ spring:
       group-id: encoding-services
       enable-auto-commit: false
       max-poll-records: 1
+    listener:
+      ack-mode: manual_immediate
     producer:
       bootstrap-servers: 192.168.56.111:9092,192.168.56.112:9092,192.168.56.113:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

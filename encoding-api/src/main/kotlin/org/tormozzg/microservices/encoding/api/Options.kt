@@ -1,7 +1,7 @@
 package org.tormozzg.microservices.encoding.api
 
 class Options {
-  var level: String? = null
+  var level: String? = "3.0"
     private set
 
   fun withLevel(level: String?): Options = this.also {

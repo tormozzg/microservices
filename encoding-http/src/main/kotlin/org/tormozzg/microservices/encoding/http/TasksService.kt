@@ -28,7 +28,7 @@ class TasksService(
   private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
   fun createTask(task: Task): Mono<TaskStatus> = Mono.create { sink ->
-    kafkaTemplate.send(serviceConfig.topic, objectMapper.writeValueAsBytes(task))
+    kafkaTemplate.send(serviceConfig.topic, task.id, objectMapper.writeValueAsBytes(task))
       .addCallback(SendCallback(task, sink))
   }
 
