@@ -5,6 +5,7 @@ plugins {
   id("io.spring.dependency-management")
   kotlin("jvm")
   kotlin("plugin.spring")
+  kotlin("kapt")
   kotlin("plugin.jpa") version "1.4.21"
   kotlin("plugin.noarg") version "1.4.21"
 }
@@ -28,7 +29,9 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-log4j2")
   implementation("com.lmax:disruptor:3.4.2")
   implementation("org.springframework.boot:spring-boot-starter-undertow")
+  implementation("net.bramp.ffmpeg:ffmpeg:0.6.2")
   implementation(project(":encoding-api"))
+  kapt("org.springframework.boot:spring-boot-configuration-processor")
   runtimeOnly("io.micrometer:micrometer-registry-prometheus")
   testImplementation("org.springframework.boot:spring-boot-starter-test") {
     exclude(group = "org.junit.vintage", module = "junit-vintage-engine")

@@ -8,31 +8,31 @@ import org.springframework.kafka.support.Acknowledgment
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Service
 import org.tormozzg.microservices.encoding.api.Task
+import org.tormozzg.microservices.encoding.jobs.PipelineFactory
 import reactor.core.publisher.Mono
 
 @Service
 class EncodingService(
-  private val om: ObjectMapper
+    private val om: ObjectMapper,
+    private val pipelineFactory: PipelineFactory
 ) {
 
-  private val log: Logger = LoggerFactory.getLogger(this::class.java)
+    private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
-  @KafkaListener(topics = ["encoding-tasks"])
-  fun onNewTask(@Payload data: ByteArray, acknowledgment: Acknowledgment) {
-    Mono.fromCallable {
-      om.readValue(data, Task::class.java)
+    @KafkaListener(topics = ["encoding-tasks"])
+    fun onNewTask(@Payload data: ByteArray, acknowledgment: Acknowledgment) {
+        Mono.fromCallable {
+            om.readValue(data, Task::class.java)
+        }
+            .flatMap { task ->
+                pipelineFactory.createPipeline(task)
+                    .run()
+            }
+            .subscribe({ artifacts ->
+                log.info("Task #{} successfully done", artifacts.task.id)
+                acknowledgment.acknowledge()
+            }, {
+                log.error("Error occurred during executing task", it)
+            })
     }
-      .map { task ->
-        log.info("Got new task #{}", task.id)
-        task
-      }
-      .flatMap {
-        Thread.sleep(2500)
-        Mono.just(it)
-      }
-      .subscribe({ task ->
-        log.info("Task #{} successfully done", task.id)
-        acknowledgment.acknowledge()
-      }, {})
-  }
 }

@@ -21,6 +21,4 @@ class TasksController(
       .flatMap {
         tasksService.createTask(it)
       }
-
-  // todo: list tasks
 }
