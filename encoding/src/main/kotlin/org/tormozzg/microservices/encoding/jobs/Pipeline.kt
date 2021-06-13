@@ -9,18 +9,16 @@ class Pipeline constructor(
 ) {
 
     fun run(): Mono<Artifacts> {
-        return Flux.fromArray(jobs)
-            .flatMap { job ->
-                Mono.deferWithContext { ctx ->
-                    val artifacts = ctx.getOrDefault("artifacts", init)!!
+        return Flux.defer {
+            var artifacts = init
+            Flux.fromArray(jobs)
+                .concatMap { job ->
                     Mono.fromCallable {
                         job.execute(artifacts)
-                            .also { ctx.put("artifacts", it) }
+                            .also { artifacts = it }
                     }
                 }
-
-            }
+        }
             .last()
     }
-
 }

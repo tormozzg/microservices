@@ -62,6 +62,7 @@ class EncodeJob(
                 task.resolution,
                 task.options!!
             )
+            downloadedFile.delete()
             log.debug("Conventing file has been successfully complete.")
             converted
         }

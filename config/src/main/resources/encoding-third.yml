@@ -1,0 +1,17 @@
+server:
+  port: 8086
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9191,localhost:9192,localhost:9193
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      group-id: encoding-services
+      enable-auto-commit: false
+      max-poll-records: 1
+    listener:
+      ack-mode: manual_immediate
+    producer:
+      bootstrap-servers: localhost:9191,localhost:9192,localhost:9193
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
