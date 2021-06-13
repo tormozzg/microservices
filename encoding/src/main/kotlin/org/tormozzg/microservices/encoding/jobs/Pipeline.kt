@@ -8,17 +8,13 @@ class Pipeline constructor(
     private val jobs: Array<Job>
 ) {
 
-    fun run(): Mono<Artifacts> {
-        return Flux.defer {
-            var artifacts = init
-            Flux.fromArray(jobs)
-                .concatMap { job ->
-                    Mono.fromCallable {
-                        job.execute(artifacts)
-                            .also { artifacts = it }
-                    }
-                }
-        }
+    fun run(): Artifacts {
+
+        var artifacts = init
+        return jobs
+            .map { job ->
+                job.execute(artifacts).also { artifacts = it }
+            }
             .last()
     }
 }
