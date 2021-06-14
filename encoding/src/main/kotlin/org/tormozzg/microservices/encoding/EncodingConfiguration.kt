@@ -7,6 +7,7 @@ import java.time.Duration
 @ConfigurationProperties(prefix = "encoding")
 @ConstructorBinding
 data class EncodingConfiguration(
+    val fileBaseUrl: String,
     val tmpDirectory: String = "cache",
     val completeDirectory: String = "complete",
     val ffmpeg: String = "ffmpeg",
@@ -17,5 +18,6 @@ data class EncodingConfiguration(
     val cleanCron: String = "0 0 */15 * * *",
     val connectTimeout: Duration = Duration.ofSeconds(3),
     val readTimeout: Duration = Duration.ofSeconds(3),
-    val writeTimeout: Duration = Duration.ofSeconds(3)
+    val writeTimeout: Duration = Duration.ofSeconds(3),
+    val resendCallbackDelay: Duration = Duration.ofSeconds(5)
 )
